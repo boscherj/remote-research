@@ -16,7 +16,12 @@ mcp = FastMCP("research", port=8001)
 
 # --- ASGI app for Render / Uvicorn ---
 # Ajouter par moi pour Render
-app = mcp.asgi()
+
+# ✅ ASGI app pour Uvicorn (Render)
+try:
+    app = mcp.asgi()
+except AttributeError:
+    app = None  # fallback si version mcp ancienne en local
 
 @mcp.tool()
 def search_papers(topic: str, max_results: int = 5) -> List[str]:

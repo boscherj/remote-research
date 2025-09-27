@@ -74,7 +74,7 @@ class MCP_ChatBot:
     async def process_query(self, query):
         messages = [{'role':'user', 'content':query}]
         response = self.anthropic.messages.create(max_tokens = 2024,
-                                      model = 'claude-3-7-sonnet-20250219', 
+                                      model = 'claude-3-7-sonnet-20250219',
                                       tools = self.available_tools,
                                       messages = messages)
         process_query = True
@@ -99,7 +99,7 @@ class MCP_ChatBot:
                     # Call a tool
                     session = self.tool_to_session[tool_name] # new
                     result = await session.call_tool(tool_name, arguments=tool_args)
-                    messages.append({"role": "user", 
+                    messages.append({"role": "user",
                                       "content": [
                                           {
                                               "type": "tool_result",
@@ -109,9 +109,9 @@ class MCP_ChatBot:
                                       ]
                                     })
                     response = self.anthropic.messages.create(max_tokens = 2024,
-                                      model = 'claude-3-7-sonnet-20250219', 
+                                      model = 'claude-3-7-sonnet-20250219',
                                       tools = self.available_tools,
-                                      messages = messages) 
+                                      messages = messages)
 
                     if(len(response.content) == 1 and response.content[0].type == "text"):
                         print(response.content[0].text)
@@ -148,10 +148,10 @@ async def main():
         # the mcp clients and sessions are not initialized using "with"
         # like in the previous lesson
         # so the cleanup should be manually handled
-        await chatbot.connect_to_servers() # new! 
+        await chatbot.connect_to_servers() # new!
         await chatbot.chat_loop()
     finally:
-        await chatbot.cleanup() #new! 
+        await chatbot.cleanup() #new!
 
 
 if __name__ == "__main__":

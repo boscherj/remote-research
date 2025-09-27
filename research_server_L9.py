@@ -194,10 +194,5 @@ def generate_search_prompt(topic: str, num_papers: int = 5) -> str:
     Please present both detailed information about each paper and a high-level synthesis of the research landscape in {topic}."""
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", "8000"))  # Render fournit PORT
-    uvicorn.run(
-        "research_server_L9:app",   # ou directement l'objet app si tu l’importes
-        host="0.0.0.0",             # <— pas 127.0.0.1
-        port=port,
-        log_level="info"
-    )
+    # Initialize and run the server
+    mcp.run(transport='sse')

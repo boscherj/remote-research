@@ -1,0 +1,55 @@
+{
+  "2304.02924v1": {
+    "title": "The Governance of Physical Artificial Intelligence",
+    "authors": [
+      "Yingbo Li",
+      "Anamaria-Beatrice Spulber",
+      "Yucong Duan"
+    ],
+    "summary": "Physical artificial intelligence can prove to be one of the most important\nchallenges of the artificial intelligence. The governance of physical\nartificial intelligence would define its responsible intelligent application in\nthe society.",
+    "pdf_url": "http://arxiv.org/pdf/2304.02924v1",
+    "published": "2023-04-06"
+  },
+  "1712.06440v1": {
+    "title": "Three IQs of AI Systems and their Testing Methods",
+    "authors": [
+      "Feng Liu",
+      "Yong Shi",
+      "Ying Liu"
+    ],
+    "summary": "The rapid development of artificial intelligence has brought the artificial\nintelligence threat theory as well as the problem about how to evaluate the\nintelligence level of intelligent products. Both need to find a quantitative\nmethod to evaluate the intelligence level of intelligence systems, including\nhuman intelligence. Based on the standard intelligence system and the extended\nVon Neumann architecture, this paper proposes General IQ, Service IQ and Value\nIQ evaluation methods for intelligence systems, depending on different\nevaluation purposes. Among them, the General IQ of intelligence systems is to\nanswer the question of whether the artificial intelligence can surpass the\nhuman intelligence, which is reflected in putting the intelligence systems on\nan equal status and conducting the unified evaluation. The Service IQ and Value\nIQ of intelligence systems are used to answer the question of how the\nintelligent products can better serve the human, reflecting the intelligence\nand required cost of each intelligence system as a product in the process of\nserving human.",
+    "pdf_url": "http://arxiv.org/pdf/1712.06440v1",
+    "published": "2017-12-14"
+  },
+  "1912.09571v1": {
+    "title": "Measuring the intelligence of an idealized mechanical knowing agent",
+    "authors": [
+      "Samuel Allen Alexander"
+    ],
+    "summary": "We define a notion of the intelligence level of an idealized mechanical\nknowing agent. This is motivated by efforts within artificial intelligence\nresearch to define real-number intelligence levels of complicated intelligent\nsystems. Our agents are more idealized, which allows us to define a much\nsimpler measure of intelligence level for them. In short, we define the\nintelligence level of a mechanical knowing agent to be the supremum of the\ncomputable ordinals that have codes the agent knows to be codes of computable\nordinals. We prove that if one agent knows certain things about another agent,\nthen the former necessarily has a higher intelligence level than the latter.\nThis allows our intelligence notion to serve as a stepping stone to obtain\nresults which, by themselves, are not stated in terms of our intelligence\nnotion (results of potential interest even to readers totally skeptical that\nour notion correctly captures intelligence). As an application, we argue that\nthese results comprise evidence against the possibility of intelligence\nexplosion (that is, the notion that sufficiently intelligent machines will\neventually be capable of designing even more intelligent machines, which can\nthen design even more intelligent machines, and so on).",
+    "pdf_url": "http://arxiv.org/pdf/1912.09571v1",
+    "published": "2019-12-03"
+  },
+  "2403.06591v1": {
+    "title": "Academically intelligent LLMs are not necessarily socially intelligent",
+    "authors": [
+      "Ruoxi Xu",
+      "Hongyu Lin",
+      "Xianpei Han",
+      "Le Sun",
+      "Yingfei Sun"
+    ],
+    "summary": "The academic intelligence of large language models (LLMs) has made remarkable\nprogress in recent times, but their social intelligence performance remains\nunclear. Inspired by established human social intelligence frameworks,\nparticularly Daniel Goleman's social intelligence theory, we have developed a\nstandardized social intelligence test based on real-world social scenarios to\ncomprehensively assess the social intelligence of LLMs, termed as the\nSituational Evaluation of Social Intelligence (SESI). We conducted an extensive\nevaluation with 13 recent popular and state-of-art LLM agents on SESI. The\nresults indicate the social intelligence of LLMs still has significant room for\nimprovement, with superficially friendliness as a primary reason for errors.\nMoreover, there exists a relatively low correlation between the social\nintelligence and academic intelligence exhibited by LLMs, suggesting that\nsocial intelligence is distinct from academic intelligence for LLMs.\nAdditionally, while it is observed that LLMs can't ``understand'' what social\nintelligence is, their social intelligence, similar to that of humans, is\ninfluenced by social factors.",
+    "pdf_url": "http://arxiv.org/pdf/2403.06591v1",
+    "published": "2024-03-11"
+  },
+  "2409.14496v1": {
+    "title": "On a measure of intelligence",
+    "authors": [
+      "Yuri Gurevich"
+    ],
+    "summary": "The Fall 2024 Logic in Computer Science column of the Bulletin of EATCS is a\nlittle discussion on intelligence, measuring intelligence, and related issues,\nprovoked by a fascinating must-read article ``On the measure of intelligence''\nby Fran\\c{c}ois Chollet. The discussion includes a modicum of critique of the\narticle.",
+    "pdf_url": "http://arxiv.org/pdf/2409.14496v1",
+    "published": "2024-09-22"
+  }
+}

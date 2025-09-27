@@ -1,0 +1,33 @@
+{
+  "2408.13006v2": {
+    "title": "Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks: Explainable Metrics and Diverse Prompt Templates",
+    "authors": [
+      "Hui Wei",
+      "Shenghua He",
+      "Tian Xia",
+      "Fei Liu",
+      "Andy Wong",
+      "Jingyang Lin",
+      "Mei Han"
+    ],
+    "summary": "LLM-as-a-Judge has been widely applied to evaluate and compare different LLM\nalignmnet approaches (e.g., RLHF and DPO). However, concerns regarding its\nreliability have emerged, due to LLM judges' biases and inconsistent\ndecision-making. Previous research has developed evaluation frameworks to\nassess reliability of LLM judges and their alignment with human preferences.\nHowever, the employed evaluation metrics often lack adequate explainability and\nfail to address LLM internal inconsistency. Additionally, existing studies\ninadequately explore the impact of various prompt templates when applying\nLLM-as-a-Judge methods, leading to potentially inconsistent comparisons between\ndifferent alignment algorithms. In this work, we systematically evaluate\nLLM-as-a-Judge on alignment tasks by defining more theoretically interpretable\nevaluation metrics and explicitly mitigating LLM internal inconsistency from\nreliability metrics. We develop an open-source framework to evaluate, compare,\nand visualize the reliability and alignment of LLM judges, which facilitates\npractitioners to choose LLM judges for alignment tasks. In the experiments, we\nexamine effects of diverse prompt templates on LLM-judge reliability and also\ndemonstrate our developed framework by comparing various LLM judges on two\ncommon alignment datasets (i.e., TL;DR Summarization and HH-RLHF-Helpfulness).\nOur results indicate a significant impact of prompt templates on LLM judge\nperformance, as well as a mediocre alignment level between the tested LLM\njudges and human evaluators.",
+    "pdf_url": "http://arxiv.org/pdf/2408.13006v2",
+    "published": "2024-08-23"
+  },
+  "2410.07069v1": {
+    "title": "ReIFE: Re-evaluating Instruction-Following Evaluation",
+    "authors": [
+      "Yixin Liu",
+      "Kejian Shi",
+      "Alexander R. Fabbri",
+      "Yilun Zhao",
+      "Peifeng Wang",
+      "Chien-Sheng Wu",
+      "Shafiq Joty",
+      "Arman Cohan"
+    ],
+    "summary": "The automatic evaluation of instruction following typically involves using\nlarge language models (LLMs) to assess response quality. However, there is a\nlack of comprehensive evaluation of these LLM-based evaluators across two\ndimensions: the base LLMs and the evaluation protocols. Therefore, we present a\nthorough meta-evaluation of instruction following, including 25 base LLMs and\n15 recently proposed evaluation protocols, on 4 human-annotated datasets,\nassessing the evaluation accuracy of the LLM-evaluators. Our evaluation allows\nus to identify the best-performing base LLMs and evaluation protocols with a\nhigh degree of robustness. Moreover, our large-scale evaluation reveals: (1)\nBase LLM performance ranking remains largely consistent across evaluation\nprotocols, with less capable LLMs showing greater improvement from protocol\nenhancements; (2) Robust evaluation of evaluation protocols requires many base\nLLMs with varying capability levels, as protocol effectiveness can depend on\nthe base LLM used; (3) Evaluation results on different datasets are not always\nconsistent, so a rigorous evaluation requires multiple datasets with\ndistinctive features. We release our meta-evaluation suite ReIFE, which\nprovides the codebase and evaluation result collection for more than 500\nLLM-evaluator configurations, to support future research in\ninstruction-following evaluation.",
+    "pdf_url": "http://arxiv.org/pdf/2410.07069v1",
+    "published": "2024-10-09"
+  }
+}

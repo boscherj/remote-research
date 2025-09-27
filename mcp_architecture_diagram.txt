@@ -1,0 +1,55 @@
+```
+                            MODEL CONTEXT PROTOCOL (MCP) ARCHITECTURE
+                            ======================================
+
+                                 +------------------+
+                                 |                  |
+                                 |    MCP HOST      |  (AI Application, e.g., Claude Code, VS Code)
+                                 |                  |
+                                 +--------+---------+
+                                          |
+                             +-----------+-----------+
+                             |                       |
+                     +-------v------+       +--------v-------+
+                     |              |       |                |
+                     |  MCP CLIENT  |       |   MCP CLIENT   |  (One client per server connection)
+                     |              |       |                |
+                     +-------+------+       +--------+-------+
+                             |                       |
+               +-------------+-----------+ +---------+-----------+
+               |                         | |                     |
+        +------v------+          +------v------+          +-----v-------+
+        |             |          |             |          |             |
+        | MCP SERVER  |          | MCP SERVER  |          | MCP SERVER  |
+        | (Local)     |          | (Remote)    |          | (Remote)    |
+        |             |          |             |          |             |
+        +-------------+          +-------------+          +-------------+
+
+                    DATA LAYER (JSON-RPC 2.0 Protocol)
+     +------------------------------------------------------+
+     |                                                      |
+     |   SERVER PRIMITIVES           CLIENT PRIMITIVES      |
+     |   ----------------           -----------------       |
+     |   - Tools                    - Sampling              |
+     |   - Resources                - Elicitation           |
+     |   - Prompts                  - Logging               |
+     |                                                      |
+     |   LIFECYCLE MANAGEMENT       NOTIFICATIONS           |
+     |   --------------------       -------------           |
+     |   - Initialization           - Real-time updates     |
+     |   - Capability negotiation                           |
+     |   - Termination                                      |
+     +------------------------------------------------------+
+                                |
+                                v
+     +------------------------------------------------------+
+     |                  TRANSPORT LAYER                     |
+     |                                                      |
+     |   STDIO TRANSPORT             HTTP TRANSPORT         |
+     |   ---------------             --------------         |
+     |   - Local processes           - Remote servers       |
+     |   - Direct I/O                - HTTP + SSE           |
+     |   - No network overhead       - Authentication       |
+     +------------------------------------------------------+
+
+```

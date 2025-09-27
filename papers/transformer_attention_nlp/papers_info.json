@@ -1,0 +1,39 @@
+{
+  "2012.02030v3": {
+    "title": "Data-Informed Global Sparseness in Attention Mechanisms for Deep Neural Networks",
+    "authors": [
+      "Ileana Rugina",
+      "Rumen Dangovski",
+      "Li Jing",
+      "Preslav Nakov",
+      "Marin Solja\u010di\u0107"
+    ],
+    "summary": "Attention mechanisms play a crucial role in the neural revolution of Natural\nLanguage Processing (NLP). With the growth of attention-based models, several\npruning techniques have been developed to identify and exploit sparseness,\nmaking these models more efficient. Most efforts focus on hard-coding attention\npatterns or pruning attention weights based on training data. We propose\nAttention Pruning (AP), a framework that observes attention patterns in a fixed\ndataset and generates a global sparseness mask. AP saves 90% of attention\ncomputation for language modeling and about 50% for machine translation and\nGLUE tasks, maintaining result quality. Our method reveals important\ndistinctions between self- and cross-attention patterns, guiding future NLP\nresearch. Our framework can reduce both latency and memory requirements for any\nattention-based model, aiding in the development of improved models for\nexisting or new NLP applications. We have demonstrated this with encoder and\nautoregressive transformer models using Triton GPU kernels and make our code\npublicly available at https://github.com/irugina/AP.",
+    "pdf_url": "http://arxiv.org/pdf/2012.02030v3",
+    "published": "2020-11-20"
+  },
+  "2501.15630v2": {
+    "title": "Quantum-Enhanced Attention Mechanism in NLP: A Hybrid Classical-Quantum Approach",
+    "authors": [
+      "S. M. Yousuf Iqbal Tomal",
+      "Abdullah Al Shafin",
+      "Debojit Bhattacharjee",
+      "MD. Khairul Amin",
+      "Rafiad Sadat Shahir"
+    ],
+    "summary": "Recent advances in quantum computing have opened new pathways for enhancing\ndeep learning architectures, particularly in domains characterized by\nhigh-dimensional and context-rich data such as natural language processing\n(NLP). In this work, we present a hybrid classical-quantum Transformer model\nthat integrates a quantum-enhanced attention mechanism into the standard\nclassical architecture. By embedding token representations into a quantum\nHilbert space via parameterized variational circuits and exploiting\nentanglement-aware kernel similarities, the model captures complex semantic\nrelationships beyond the reach of conventional dot-product attention. We\ndemonstrate the effectiveness of this approach across diverse NLP benchmarks,\nshowing improvements in both efficiency and representational capacity. The\nresults section reveal that the quantum attention layer yields globally\ncoherent attention maps and more separable latent features, while requiring\ncomparatively fewer parameters than classical counterparts. These findings\nhighlight the potential of quantum-classical hybrid models to serve as a\npowerful and resource-efficient alternative to existing attention mechanisms in\nNLP.",
+    "pdf_url": "http://arxiv.org/pdf/2501.15630v2",
+    "published": "2025-01-26"
+  },
+  "2202.07856v2": {
+    "title": "The NLP Task Effectiveness of Long-Range Transformers",
+    "authors": [
+      "Guanghui Qin",
+      "Yukun Feng",
+      "Benjamin Van Durme"
+    ],
+    "summary": "Transformer models cannot easily scale to long sequences due to their O(N^2)\ntime and space complexity. This has led to Transformer variants seeking to\nlower computational complexity, such as Longformer and Performer. While such\nmodels have theoretically greater efficiency, their effectiveness on real NLP\ntasks has not been well studied. We benchmark 7 variants of Transformer models\non 5 difficult NLP tasks and 7 datasets. We design experiments to isolate the\neffect of pretraining and hyperparameter settings, to focus on their capacity\nfor long-range attention. Moreover, we present various methods to investigate\nattention behaviors to illuminate model details beyond metric scores. We find\nthat the modified attention in long-range transformers has advantages on\ncontent selection and query-guided decoding, but they come with previously\nunrecognized drawbacks such as insufficient attention to distant tokens and\naccumulated approximation error.",
+    "pdf_url": "http://arxiv.org/pdf/2202.07856v2",
+    "published": "2022-02-16"
+  }
+}

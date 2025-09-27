@@ -1,0 +1,25 @@
+{
+  "2508.11628v1": {
+    "title": "Is ChatGPT-5 Ready for Mammogram VQA?",
+    "authors": [
+      "Qiang Li",
+      "Shansong Wang",
+      "Mingzhe Hu",
+      "Mojtaba Safari",
+      "Zachary Eidex",
+      "Xiaofeng Yang"
+    ],
+    "summary": "Mammogram visual question answering (VQA) integrates image interpretation\nwith clinical reasoning and has potential to support breast cancer screening.\nWe systematically evaluated the GPT-5 family and GPT-4o model on four public\nmammography datasets (EMBED, InBreast, CMMD, CBIS-DDSM) for BI-RADS assessment,\nabnormality detection, and malignancy classification tasks. GPT-5 consistently\nwas the best performing model but lagged behind both human experts and\ndomain-specific fine-tuned models. On EMBED, GPT-5 achieved the highest scores\namong GPT variants in density (56.8%), distortion (52.5%), mass (64.5%),\ncalcification (63.5%), and malignancy (52.8%) classification. On InBreast, it\nattained 36.9% BI-RADS accuracy, 45.9% abnormality detection, and 35.0%\nmalignancy classification. On CMMD, GPT-5 reached 32.3% abnormality detection\nand 55.0% malignancy accuracy. On CBIS-DDSM, it achieved 69.3% BI-RADS\naccuracy, 66.0% abnormality detection, and 58.2% malignancy accuracy. Compared\nwith human expert estimations, GPT-5 exhibited lower sensitivity (63.5%) and\nspecificity (52.3%). While GPT-5 exhibits promising capabilities for screening\ntasks, its performance remains insufficient for high-stakes clinical imaging\napplications without targeted domain adaptation and optimization. However, the\ntremendous improvements in performance from GPT-4o to GPT-5 show a promising\ntrend in the potential for general large language models (LLMs) to assist with\nmammography VQA tasks.",
+    "pdf_url": "http://arxiv.org/pdf/2508.11628v1",
+    "published": "2025-08-15"
+  },
+  "2508.19259v1": {
+    "title": "Capabilities of GPT-5 across critical domains: Is it the next breakthrough?",
+    "authors": [
+      "Georgios P. Georgiou"
+    ],
+    "summary": "The accelerated evolution of large language models has raised questions about\ntheir comparative performance across domains of practical importance. GPT-4 by\nOpenAI introduced advances in reasoning, multimodality, and task\ngeneralization, establishing itself as a valuable tool in education, clinical\ndiagnosis, and academic writing, though it was accompanied by several flaws.\nReleased in August 2025, GPT-5 incorporates a system-of-models architecture\ndesigned for task-specific optimization and, based on both anecdotal accounts\nand emerging evidence from the literature, demonstrates stronger performance\nthan its predecessor in medical contexts. This study provides one of the first\nsystematic comparisons of GPT-4 and GPT-5 using human raters from linguistics\nand clinical fields. Twenty experts evaluated model-generated outputs across\nfive domains: lesson planning, assignment evaluation, clinical diagnosis,\nresearch generation, and ethical reasoning, based on predefined criteria.\nMixed-effects models revealed that GPT-5 significantly outperformed GPT-4 in\nlesson planning, clinical diagnosis, research generation, and ethical\nreasoning, while both models performed comparably in assignment assessment. The\nfindings highlight the potential of GPT-5 to serve as a context-sensitive and\ndomain-specialized tool, offering tangible benefits for education, clinical\npractice, and academic research, while also advancing ethical reasoning. These\nresults contribute to one of the earliest empirical evaluations of the evolving\ncapabilities and practical promise of GPT-5.",
+    "pdf_url": "http://arxiv.org/pdf/2508.19259v1",
+    "published": "2025-08-16"
+  }
+}

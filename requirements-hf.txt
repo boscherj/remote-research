@@ -1,0 +1,2 @@
+gradio[mcp]>=4.44
+arxiv>=2.2

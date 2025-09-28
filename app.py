@@ -2,42 +2,30 @@ import os
 import gradio as gr
 from research_core import search_papers, extract_info
 
-# ---- Fonctions UI (deviennent des outils MCP) ----
-def ui_search(topic: str, max_results: int = 5):
-    return ", ".join(search_papers(topic, max_results))
+def ui_search(topic: str, max_results: int = 5) -> str:
+    ids = search_papers(topic, max_results)
+    return ", ".join(ids)
 
-def ui_info(paper_id: str):
+def ui_info(paper_id: str) -> str:
     return extract_info(paper_id)
 
-# ---- Deux Interfaces séparées ----
-demo_search = gr.Interface(
-    fn=ui_search,
-    inputs=[gr.Textbox(label="Topic"), gr.Number(value=5, label="Max results")],
-    outputs="text",
-    title="Search papers",
-    description="Search arXiv and list paper IDs",
-)
+with gr.Blocks() as demo:
+    gr.Markdown("# Research MCP (Gradio)\nCherche sur arXiv et récupère les infos d’un papier.")
 
-demo_info = gr.Interface(
-    fn=ui_info,
-    inputs=[gr.Textbox(label="Paper ID (ex: 1310.1984v2)"]],
-    outputs="text",
-    title="Extract paper info",
-    description="Fetch stored JSON/TXT for a given paper ID",
-)
-
-# ---- UI combinée (onglets) => les 2 fonctions deviennent 2 outils MCP ----
-with gr.Blocks(title="Research MCP (Gradio)") as demo:
-    gr.Markdown("## Research MCP (Gradio)\nDeux outils : recherche & extraction d'infos.")
     with gr.Tab("Search"):
-        demo_search.render()
-    with gr.Tab("Info"):
-        demo_info.render()
+        t = gr.Textbox(label="Topic")
+        n = gr.Number(value=5, label="Max results")
+        out_ids = gr.Textbox(label="Paper IDs (comma-separated)")
+        gr.Button("Search").click(ui_search, [t, n], out_ids)
 
-# Sur Hugging Face Spaces, le script est exécuté comme __main__, donc on lance :
-if __name__ == "__main__":
-    demo.launch(
-        mcp_server=True,             # ← active le serveur MCP
-        server_name="0.0.0.0",       # OK pour Spaces
-        server_port=int(os.getenv("PORT", "7860")),
-    )
+    with gr.Tab("Info"):
+        pid = gr.Textbox(label="Paper ID (ex: 1310.1984v2)")
+        out_info = gr.Textbox(label="Paper info (JSON)")
+        gr.Button("Get info").click(ui_info, [pid], out_info)
+
+# Sur HF Spaces, on lance avec mcp_server=True pour exposer l’endpoint MCP
+demo.launch(
+    mcp_server=True,
+    server_name="0.0.0.0",
+    server_port=int(os.getenv("PORT", "7860"))
+)

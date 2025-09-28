@@ -7,7 +7,7 @@ from research_core import search_papers, extract_info
 
 # ⬇️ API MCP de Gradio (pas de décorateurs)
 # gradio[mcp] installe le module `gradio_mcp`
-from gradio_mcp import Server, Tool, create_mcp_app
+from gradio.mcp import Server, Tool, create_mcp_app
 
 # 1) Crée un serveur MCP
 server = Server(name="research")

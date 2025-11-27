@@ -5,3 +5,9 @@
 .env.*
 *.env
 vars.env
+# MacOS
+.DS_Store
+
+# Python caches
+__pycache__/
+*.pyc

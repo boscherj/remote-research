@@ -1,0 +1,121 @@
+0:02 The MCP server you built and the reference servers you used
+0:05 can also be used with any other MCP compliant application.
+0:10 That could be an IDE for a desktop app or an agentic framework.
+0:14 Claude desktop is an example of such an application.
+0:17 In this lesson,
+0:18 you'll learn how to configure Claude Desktop to connect to MCP servers.
+0:22 Let's have some fun!
+0:23 So you previously seen how to build your own MCP servers and clients and use
+0:28 prompts, resources and tools to build pretty sophisticated applications.
+0:32 And I mentioned that some of that code, particularly when building
+0:35 clients and multiple clients, can be a bit low level.
+0:38 What you're going to see is the ability to use applications like Claude desktop
+0:42 and a variety of other agentic products, to use MCP to connect to MCP servers
+0:48 and abstract away some of the challenges of that lower-level coding.
+0:51 Right here I'm in a folder called MCP project on the desktop,
+0:54 and I have the research server that you made in a previous lesson.
+0:57 What I'm going to do now is follow the same steps to create
+1:01 an environment with uv and install the necessary dependencies.
+1:04 And then I'm going to navigate to Claude Desktop and bring in this MCP
+1:08 server alongside a couple other other reference servers that we've seen.
+1:12 So we'll start by doing uv init.
+1:13 I'll make sure to uv venv and I'll activate my virtual environment.
+1:17 I'll install the necessary dependencies that we have.
+1:20 So I'll go ahead and add arxiv as well as MCP.
+1:24 Once I've
+1:24 got these added, I have all of the necessary dependencies
+1:28 that I need to start my server, but I'm not going to run the server here.
+1:32 I'm going to use Claude Desktop to do that for me.
+1:35 The same way that we set up our own Json file for configuring
+1:38 how to connect to MCP servers,
+1:40 we're going to do something similar with Claude Desktop. In Claude Desktop,
+1:43 I'll head over to settings.
+1:46 I'll go to developer.
+1:48 And we can see here
+1:49 that I can edit a config file to start connecting to MCP servers.
+1:53 I'm going to go ahead and open up this JSON file.
+1:56 And inside here, I'm going to paste in our configuration
+1:59 file from before, but with a slight change.
+2:02 We're still referencing the name of the server and the command necessary
+2:06 to get the server started.
+2:07 What's important though, is that for our research server, I'm
+2:11 specifying the exact file path to go ahead and run the server.
+2:20 If you
+2:21 remember, when using standard IO and connecting locally,
+2:24 the client is going to start a connection and a subprocess to these servers.
+2:28 With this file and the Claude desktop AI application.
+2:32 This is all abstracted away from us.
+2:34 So all of that lower-level code that we were doing earlier
+2:37 we don't need to worry about.
+2:38 It's important to know how it works under the hood.
+2:40 But what we're doing here is that same idea
+2:43 multiple clients connecting to multiple servers.
+2:46 But all we need is the configuration file.
+2:48 You're also going to see in Claude desktop, what the interface looks like
+2:52 when working with prompts and tools and resources.
+2:55 Once we've modified this file, we have to close Claude desktop
+2:58 and reopen it so we can establish these connections.
+3:01 Now that I've restarted Claude Desktop, I can take a look at some of the tools
+3:05 I have access to.
+3:06 And we saw this before when exploring SQLite 3.
+3:09 I have my local research server with the tools that we've defined.
+3:13 I have my fetch and file system and I have from the research server
+3:18 my resource as well as my prompts. The interface for prompts and resources
+3:22 and tools is completely up to the developer of a tool like Claude Desktop.
+3:27 There are a variety of AI assistants and tools
+3:30 and agentic products that you can use that support the Model Context Protocol.
+3:34 Let's examine those. Over here on the Model Context Protocol documentation,
+3:38 we can see a list of applications that support MCP integrations.
+3:42 And a lot of this should look relatively familiar.
+3:44 These are some of the primitives we've explored,
+3:46 like resources, prompts, and tools.
+3:48 And in the last section,
+3:49 you'll learn a bit about sampling and routes other powerful primitives
+3:53 that are on their way to getting more and more adoption.
+3:55 As you can see here, there's quite a range of applications
+3:58 from web applications, agentic applications, command line interfaces,
+4:02 integrated development environments that support the model Context Protocol.
+4:06 You can click on any of these, discover them, and see
+4:09 how to start talking to MCP servers within these existing applications.
+4:13 What's so powerful about this idea
+4:15 is that while this may look extremely vast,
+4:17 you've actually seen already how a lot of this works under the hood
+4:20 by building your own servers and own clients.
+4:23 So let's take a look at how Claude desktop users are
+4:26 tools, prompts, and resources by connecting to MCP servers.
+4:30 Now let's put this all together.
+4:31 I'm going to paste in a prompt that I have here to use the fetch tool
+4:35 to visit DeepLearning.AI
+4:36 I can find an interesting topic about machine learning.
+4:39 I'll then use our research server to research a few papers
+4:43 and summarize the main topics covered.
+4:45 I'll then use the artifacts feature to generate a web-based quiz
+4:48 application with a set of flashcards based on the key topics in the papers.
+4:52 So what we're doing here is combining a set of tools
+4:55 from different MCP servers to fetch the data that we're looking for.
+5:00 So we're using the fetch tool here to visit DeepLearning.AI.
+5:03 And here, looks like there are quite a few interesting topics.
+5:06 One of those being multi-modal LLMs and advancements in AI models.
+5:10 We'll then use our search papers tool from the research server
+5:14 to extract some information about those papers.
+5:16 We'll even look at one more recent paper to ensure we have a good sample.
+5:24 Here, we see the two papers that have been discovered
+5:26 and a web application that's being built at the moment.
+5:29 The ability to incorporate visualizations and tools like artifacts
+5:33 with the tools that we get from MCP servers, allow us to build really powerful
+5:37 applications across a variety of domains with relative ease.
+5:41 While we just have a small example here, you can let your imagination
+5:43 carry you again for all the different use cases we have.
+5:47 We've got a summarization and a little game right here.
+5:49 We can take a look at what some of these answers are.
+5:51 And with a little bit of prompting,
+5:52 we can always make this look a little bit nicer.
+5:55 In this lesson, you've seen how to use tools like Claude Desktop
+5:58 to connect to MCP servers and abstract away a lot of the lower
+6:02 level networking and code.
+6:03 You've also seen a list of many different MCP
+6:06 compatible applications to get you up and running with different IDE's,
+6:11 web applications, and client-side or desktop applications.
+6:14 In the next section,
+6:15 we'll dive a little bit deeper into building remote MCP servers.
+6:19 See you then.

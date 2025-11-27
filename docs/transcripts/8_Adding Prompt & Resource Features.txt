@@ -1,0 +1,221 @@
+
+0:02 So far,
+0:02 your MCP server only provided tools to your chatbot.
+0:06 You'll now update your server so that it also provides
+0:09 resources and a prompt template. On the chatbot side,
+0:13 you'll expose those features to the user.
+0:15 Let's do it!
+0:16 We've already seen how to create multiple
+0:19 MCP clients connecting to multiple MCP servers.
+0:23 Now let's shift back to some of the other primitives in the protocol,
+0:26 like resources and prompts, and talk about how we can add that both on the server
+0:32 as well as on the ability of the client to consume that data.
+0:36 In our research server dot py.
+0:38 You can find all of these files in your file system.
+0:41 All of these files are provided to you.
+0:43 So what I'd love to do is walk through some of the code,
+0:46 both on the server side and with our clients.
+0:49 As we saw before, adding a tool is as easy as decorating MCP dot tool.
+0:54 Now let's bring in resources and prompts and we'll talk a bit how to add those.
+0:58 The code here right now is living on our server.
+1:01 And what we're going to do is bring in a couple resources
+1:05 for all of our particular folders,
+1:08 as well as any papers on a particular topic.
+1:11 Remember that resources are read-only data
+1:14 that the application can choose to use, or we can give to the model.
+1:18 So instead of making tools to go and fetch things from the file system
+1:21 the same way, we have a Get request to fetch our data with HTTP,
+1:25 we're going to do the same thing with resources.
+1:27 So on the server, I have a resource with a URI for papers colon slash slash
+1:32 folders to go ahead and list the available folders in the paper directory.
+1:36 I also have a resource here to fetch information about a particular topic.
+1:41 We haven't done any of the implementation yet for what this is going to look like,
+1:44 how it's going to be presented, or how it's going to be fetched.
+1:47 All we're setting up on the server
+1:49 are just ways to listen for requests for these particular resources.
+1:53 We have a little bit of string manipulation in here, as well
+1:56 as reading files to go ahead and fetch the data necessary
+2:00 with some error handling to make sure that if papers are not found,
+2:04 we go ahead and put that error message in.
+2:06 We can see here we're reading from our paper's info JSON file,
+2:10 and then returning a bit of text around the content that we have.
+2:13 Aside from our resources,
+2:15 we can also add prompt or prompt templates to our MCP servers.
+2:19 So let's take a look at the prompt that we have here.
+2:21 Before we dive into this code, let's remember the purpose of the primitive
+2:25 for a prompt template.
+2:26 Prompts are meant to be user-controlled.
+2:28 You can imagine as the user of an AI application,
+2:31 you don't want to have to do complex prompt engineering yourself.
+2:34 In fact, you may be working with a server.
+2:37 You may be trying to get some information, but you might not know the best way
+2:40 to fetch it or retrieve it based on the prompt that you have.
+2:43 Prompt templates are created on the server and are sent to the client
+2:48 so that the user can use those entire templates
+2:51 without having to do all the prompt engineering on their own.
+2:54 So instead of asking the user to just specify how to search for papers,
+2:58 we're actually going to provide to them a battle-tested prompt
+3:02 that includes the dynamic information that they can put in, like the topic
+3:06 or the number of papers you can imagine. We can do
+3:08 some pretty sophisticated evaluations and prompt engineering testing.
+3:12 And by the time it gets to the user, this is abstracted away.
+3:15 We create a prompt template by decorating a function with MCP dot prompt.
+3:20 And then we return what the prompt template looks like.
+3:23 All that we're going to do on the client side is have the user put in the number of
+3:28 papers, which is optional, and the topic which is going to be required.
+3:32 Now that we've seen what's going to be sent
+3:34 from the server to the client, let's make sure we figure out now
+3:37 how to start bringing in these resources and prompts, and how to create a
+3:41 UI for what the resources and prompt templates should look like.
+3:45 This UI that we create, this presentation that we create
+3:49 is completely up to you as the developer to make.
+3:52 What's so powerful about MCP is that it doesn't mandate
+3:56 that all interfaces look the same and work in same.
+3:59 We're simply focused on sending back data and manipulating data,
+4:03 and the presentation is up to the client and the host to create.
+4:07 So with that in mind, let's hop back to our chatbot.
+4:10 As we saw before,
+4:11 there is going to be some slightly lower level code happening here.
+4:15 Fortunately, it's going to be relatively similar to what we saw before.
+4:19 We're going to store a list of the available tools and prompts
+4:22 that we have, as well as all of the URIs that we have for our particular resources.
+4:28 We're going to see in our connect to server function
+4:30 that things look pretty similar to what we saw before.
+4:34 We're going to be using this exit stack to manage
+4:36 all of our connections in an asynchronous environment.
+4:39 We're going to initialize the session.
+4:41 And then instead of just getting access to the tools,
+4:44 we're going to do the same thing for our prompts and our resources.
+4:47 We're going to go ahead and use the session that we establish
+4:50 for each client to list the prompts, list the tools and list the resources.
+4:55 If that server does not provide prompts or resources,
+4:58 we'll handle that error and print that exception.
+5:01 If there are any issues connecting to the server, we'll handle that as well.
+5:05 Our connect to servers function looks similar to what we saw before.
+5:09 We're going to read our JSON file, load in all of the names
+5:12 of the servers and the configuration necessary.
+5:16 Our process query is also going to look relatively similar.
+5:19 We're going to go ahead and create a message with our available tools.
+5:23 If we're using tool use we'll append that information.
+5:26 And then we'll go ahead and make sure that we call the correct tool.
+5:30 Where things will look slightly different
+5:31 is where we start handling resources and prompt templates.
+5:35 So let's start with resources. To get an individual resource,
+5:39 we're going to go ahead and make sure that we're dealing with the correct URI.
+5:43 And once we have that correct URI, we're going to read the resource from that URI.
+5:48 All that we're doing here
+5:49 is simply printing out the content of that particular resource.
+5:53 But depending on your interface that you want to build,
+5:56 you could do whatever you want with that data.
+5:58 We're going to do a similar thing for listing our prompts.
+6:00 We're going to go ahead and find all of the available prompts that we have.
+6:04 And if there are any arguments that those prompts require,
+6:07 we're going to go ahead and show that to the user. When a prompt comes in,
+6:11 we're going to go ahead and execute it.
+6:13 We'll see shortly what it looks like for a resource and a prompt to come in
+6:17 for the particular session that we're in.
+6:18 We fetch that prompt.
+6:20 We go ahead and we execute that particular prompt with that query.
+6:24 The function here that we have for executing
+6:26 the prompt is going to require us to get access to the prompt name
+6:30 and any arguments that it might have.
+6:32 Once we fetch that particular prompt,
+6:34 we go ahead and pass it in as the content of our message,
+6:37 and we go ahead and process the query with those arguments.
+6:41 Where things look a little bit different is our chat loop.
+6:44 Here is where we're going to start adding in the particular user interface
+6:48 for getting access to our resources and our prompts.
+6:51 We're doing a little bit of string manipulation here,
+6:53 and this is totally up to you as the developer
+6:56 of the host and clients for how you want things to be presented.
+7:00 We're going to be using the @ sign to get access to a particular resource.
+7:04 And if we see that
+7:05 there is a topic that's passed in first, we'll fetch it using that URI.
+7:09 If we see that our query starts with a slash, this is how will denote
+7:12 that we're using a particular prompt.
+7:14 If the command is slash prompts, we'll show the user all of them.
+7:18 If the command is slash prompt, we'll go ahead and make sure
+7:21 we're passing in those arguments. To pass in those arguments,
+7:24 we're doing a little bit of string manipulation as well.
+7:27 We're looking for key-value pairs separated by an equal sign.
+7:31 And once we have what we need we execute the prompt.
+7:34 We have similar cleanup logic to what we saw before
+7:37 and similar logic to connect to our chatbot.
+7:40 That's a lot of code.
+7:41 So let's take a step back and then we'll see this in the terminal.
+7:43 So let's go ahead and get my terminal.
+7:46 And we'll
+7:46 see here, that I'm inside of the L7 folder.
+7:50 Just like we saw before,
+7:51 I'm going to CD into MCP project.
+7:54 I'll make sure I have my dot env folder which it looks like I do.
+7:58 So let's go ahead and activate the virtual environment. Source,
+8:02 venv bin activate.
+8:04 Now that we got this activated let's go ahead and run our chatbot.
+8:08 uv run
+8:11 MCP chatbot.py
+8:15 What we're going to see here is that we're going to connect
+8:18 to many different MCP servers.
+8:20 We have a little bit of error handling here in case these servers
+8:23 do not provide tools, resources or prompts.
+8:27 What we see here is not only the ability to make a query and talk to the large
+8:31 language model, but also to get access to resources that we have.
+8:36 If I take a look at the folders that I have, I can see here
+8:39 that we are reading resources at this URI,
+8:43 and here I have access to a folder called computers.
+8:46 That's because in a previous search I looked for computers.
+8:50 Let's go get access to those papers.
+8:52 And here we'll see. I have the information right up here.
+8:54 Instead of writing a tool to go ahead and fetch that data and requiring
+8:59 that the model does all that work,
+9:00 I now can provide this context to the model
+9:03 and if the model chooses to go ahead and add it to its context window,
+9:07 and the application requires
+9:09 so, I can make use of that.
+9:11 Let's go take a look at the prompts that I have.
+9:13 Remember,
+9:14 there's a prompt that we made on the server called Generate Search Prompt.
+9:17 And we can actually see that the fetch server as well provides
+9:21 a prompt for fetching an URL and extracting its contents as markdown.
+9:25 The argument here is the URL.
+9:27 Let's go ahead and make use of this prompt.
+9:29 The way to do so is to add the slash prompt command.
+9:32 And we'll see here that the usage requires the name of the prompt,
+9:36 as well as any arguments that are required.
+9:38 So let's go ahead and use our generate search prompt.
+9:42 I'll use the slash prompt command.
+9:44 I'll pass in the name of our prompt.
+9:46 And then I'll
+9:46 go ahead and pass in the argument that is required which is the topic.
+9:50 Let's go ahead and search for some papers on that.
+9:53 The NUM papers is optional.
+9:55 So I can pass in a number if I want.
+9:57 Or I can just default to five.
+9:59 So let's go ahead and use this prompt with the dynamic variable of topic
+10:03 that I've defined.
+10:04 We'll see here, we're processing that to get the prompt.
+10:08 And then we're generating the text necessary and executing that prompt.
+10:12 We'll see here, this is going to look familiar,
+10:14 we're talking to arxiv to get access to those particular papers.
+10:18 We're going to take those papers
+10:20 and we're going to add them to the folder that we have for math.
+10:24 Once this is done, I should also be able to access this data via a resource.
+10:29 Remember that those resources are updated dynamically as data
+10:32 changes in my application.
+10:34 My query is finished and we can see the response that the model is giving me.
+10:38 Let's go take a look at what our folders look like.
+10:40 And we can see here,
+10:41 we now have topics for computers and math.
+10:44 And if we want to access that file, we can go ahead and take a look at
+10:47 what's there.
+10:48 We're making use of prompts and resources together.
+10:51 In this lesson, we've done quite a bit.
+10:53 We've explored how to add prompts and resources on the server
+10:57 and then consume them in our chatbot.
+10:59 We put together some of the core primitives like tools,
+11:03 resources, and prompts connecting to multiple MCP servers.
+11:07 In the next lesson, we're going to start introducing other kinds of hosts
+11:10 for more powerful interfaces.
+11:12 But with many of these ideas that we've seen before.
+11:14 As always, if you want to hop out, type in quit,
+11:17 and I'll see you in the next lesson.

@@ -1,0 +1,155 @@
+
+0:02 Your AI application can also connect.
+0:04 To MCP servers running remotely.
+0:07 In this lesson, you'll learn how to build a remote server,
+0:10 test it, and then deploy it.
+0:12 Let's jump in.
+0:13 So far we've seen how to build servers, build clients and hosts,
+0:18 but it's all been done locally using standard IO.
+0:21 Now let's see what it looks like to create and deploy a remote server.
+0:25 The good news is
+0:26 we don't actually have to change that much. Inside of the research server
+0:30 I've made a small configuration for our port to allow connecting
+0:33 a little bit easier. Everything else is going to feel the same.
+0:36 We still have our tools.
+0:38 We still have our resources.
+0:39 We still have our prompts.
+0:41 But where things are going to look a little bit
+0:42 different, is at the very bottom here, where we specify the transport
+0:46 that we're using. At the time of this recording,
+0:49 the SDK in Python don't yet support HTTP streamable.
+0:53 So we're going to be using SSE.
+0:55 The good news is once those SDKs are released,
+0:57 it should be a very quick change to modify the transport.
+1:01 Now that we've seen how to modify our research server to get up and running
+1:05 with SSE, let's go ahead and connect to it with the inspector.
+1:09 From this code that we provided, you can see that the server
+1:11 is already running at this particular URL.
+1:15 So there's nothing you need to do here to get the server up and running.
+1:18 Now that the server is running, let's bring in the terminal
+1:21 and connect to that server using the Inspector.
+1:29 So I'll run npx @ Model Context Protocol
+1:33 slash inspector.
+1:37 This will get the inspector started.
+1:39 And now I can go ahead and visit this in the browser.
+1:41 Over here in the inspector,
+1:43 I'm going to make sure that I have the proxy address that we had before.
+1:47 And you can find this in the notebook as well.
+1:50 And then I'm going to go ahead and make sure that my transport type is SSE.
+1:54 I'm now going to put in the URL to connect via SSE.
+1:57 And we provided this to you as well.
+1:59 Let's go ahead and connect.
+2:01 We can see here that we've initialized our connection.
+2:03 And we have our resources, prompts, tools, and other primitives.
+2:07 I can list my resources and take a look at all of my folders.
+2:10 I can list my templates to get access to a particular topic.
+2:13 So let's go see if we can search for math like we had before.
+2:17 Go ahead and run that search. For the prompts,
+2:20 We have our prompts available. And for tools,
+2:23 I have my tools available as well.
+2:25 Now that we're successfully connecting to this server using SSE,
+2:29 let's see how we can deploy this so that anyone can access our MCP server.
+2:34 Let's go ahead and deploy this server using a tool called render.
+2:38 I'll go bring in my terminal here.
+2:39 And right now I'm inside of the MCP projects folder.
+2:43 In order to work with render, I need to make sure
+2:46 that I have a git repository and then push that to GitHub
+2:49 so that render can access that particular repository.
+2:52 If you're not familiar with git and GitHub,
+2:54 I'll walk you through all those commands and what they do.
+2:57 If you're familiar with git,
+2:59 this should be a breeze. To get started with git,
+3:01 the first thing I'm going to do is initialize an empty git repository.
+3:05 I'm then going to make sure
+3:06 that there are some files and folders that are not included in git.
+3:10 So I'm going to go ahead and add the string then
+3:13 to a file called dot git ignore.
+3:15 This is going to make sure
+3:17 that when I add and commit files the dot then folder is not included.
+3:21 If I take a look at my git status right now, I can see that
+3:24 I don't see that dot env folder, which is great.
+3:27 The next thing I need to do here, is make sure that
+3:29 my dependencies are compatible with render.
+3:32 Since render does not support uv at the moment.
+3:35 We're going to go ahead and make sure that we use Pip instead
+3:39 for dependency management.
+3:40 We're going to have to take the dependencies
+3:42 for our server that we set up with uv and make them compatible with Pip.
+3:46 The command we want is uv pip compile.
+3:48 So we're going to go ahead and type in uv pip compile our pyproject .toml
+3:54 And what you see here is the output
+3:57 of turning our dependencies into what Pip needs.
+4:01 So we're going to take the result of that.
+4:03 I'm going to send it to a file called requirements.txt
+4:06 Now that we have that file called requirements.txt,
+4:09 there's one more file that we need to make sure
+4:11 we have the right version of Python for render to use.
+4:14 We're going to go ahead and send the string Python 3 11 11
+4:20 into a file called runtime dot txt.
+4:23 Now that we have the necessary files, let's take a look at git status
+4:27 and we can see that now we have requirements.txt as well as runtime txt.
+4:31 Let's go ahead and add and commit.
+4:35 And here our commit message is going to be ready for deployment.
+4:40 And now we need to take this code on git
+4:43 locally and bring it into a repository on GitHub.
+4:47 We need a GitHub repository so that render can pick up and load the project files.
+4:52 So in the browser I'm going to head over to github.com
+4:54 slash new to make a new remote repository.
+4:58 And I'll give this repository a name.
+5:00 Let's call this remote research.
+5:04 I'll go ahead and create that repository.
+5:07 And once I've created that repository
+5:09 I'm just going to use these last couple steps.
+5:12 In order to push an existing repository from the command line,
+5:15 I need to know where I'm sending that to.
+5:18 So I'm going to go ahead and copy and paste this command
+5:21 and go back to the terminal to run it.
+5:24 If I've done that successfully, I should be able to type in git remote,
+5:27 dash B and C origin as well as what I put in.
+5:32 I'm now going to go ahead and push this code up to GitHub,
+5:35 so I'll type in git push origin main. If this has been done
+5:39 successfully, I should be able to go back to the browser.
+5:46 Refresh the page and see that my code is there.
+5:50 Now that this code is successfully on GitHub,
+5:52 let's go ahead and make sure that render can pull it in
+5:56 so we can deploy successfully.
+5:57 I'm going to head over to render.com
+6:00 And at render.com I'll make sure I sign up.
+6:03 Once you've signed up or signed in you can head over to your dashboard.
+6:07 Once I sign in to the dashboard, I can now add a new service.
+6:11 So I'll click on Deploy Web Service.
+6:13 Or I can always go to new and have that there.
+6:16 If I authenticate through GitHub I can put in repositories that I have.
+6:19 Or I can put in a public git repository if I just want to put in the URL.
+6:24 I'll go ahead and select remote research.
+6:26 And the only thing I need to change
+6:28 here is the command that we use to start our server.
+6:32 The command to do so is Python research_server.py.
+6:38 I'll make sure right now I'm using the free plan.
+6:41 And once this is done, I'm ready to deploy.
+6:43 This might take a little bit
+6:44 so give it a second while it starts the application.
+6:47 And as we start deploying we're going to see the commands necessary
+6:50 to get our application up and running.
+6:52 Things that we actually saw before when we were running this locally.
+6:56 So we can see here we're using that Python 3 11 11
+6:59 that we specified in our runtime txt
+7:02 We're installing the dependencies from our requirements.txt file.
+7:05 Since we're using pip here for dependency management. Once
+7:08 this is deployed, when we visit this link we're not going to find anything.
+7:12 So we should expect a 404 error.
+7:14 But we do want to see is if we go to slash SSE
+7:17 we're seeing a response with the session ID back from the server.
+7:21 We're running the command Python research_server.py.
+7:24 So let's go ahead and see what things look like.
+7:26 The first time you look at this,
+7:27 it might take a second as your application is loading.
+7:30 So feel free to give it a minute or two.
+7:32 And we'll refresh the page. And as we refresh the page,
+7:35 and as expected I'm getting a 404.
+7:38 If I head over to the SSE endpoint, I can now see that I made it
+7:43 with this particular endpoint and a session ID.
+7:46 This means that I've deployed successfully.
+7:48 If you want to try this out in the Inspector or
+7:51 in other tools, take a look at the resources we have.
+7:54 Great job getting this deployed and I'll see you in the next lesson.

@@ -1,0 +1,149 @@
+
+0:02 In this first lesson,
+0:03 we'll go through how MCP makes AI development less fragmented
+0:07 and how it standardizes
+0:08 connections between AI applications and external data sources.
+0:13 Let's go.
+0:14 To answer the question why MCP or why the Model Context protocol?
+0:18 We like to say the models are only as good as the context provided to them.
+0:22 You can have an incredibly intelligent model at the frontier,
+0:26 but if it doesn't have the ability to connect to the outside world and pull
+0:30 in the data and context necessary, it's not as useful as it can possibly be.
+0:35 The Model Context Protocol is an open-source protocol
+0:38 that standardizes how your large language model
+0:41 connects and works with your tools and data sources.
+0:44 The idea here is not to reinvent the wheel and how we do things like tool use,
+0:49 but instead to standardize the way that our AI applications connect with data
+0:54 sources. The same way that we standardize
+0:56 how web applications communicate with back ends and other systems
+1:00 using REST, where we specify the protocol and statelessness and so on,
+1:04 we're trying to achieve the same thing with the Model Context Protocol.
+1:08 Everything that you're going to see with MCP can be done without MCP,
+1:12 but as we think about a world in which many different models communicate
+1:16 with many different data sources, and even with each other,
+1:20 we want to make sure that we're speaking the same language.
+1:23 We want to standardize how our AI applications interact
+1:26 with external systems, instead of building the same integration
+1:30 for a different data source
+1:31 over and over and over again, depending on the model or the data source,
+1:35 we're instead going to build once and use everywhere.
+1:38 The Model Context Protocol borrows a lot of its ideas
+1:42 from other protocols that aim to achieve similar kind of ideas.
+1:45 For example, LSP, or the Language Server Protocol developed in 2016
+1:50 by Microsoft, standardizes how integrated development
+1:53 environments interact with language-specific tools.
+1:57 When you create extensions for particular languages
+2:00 for particular development environments, you don't want to have to write that over
+2:03 and over again for all of those development environments.
+2:06 So while MCP is very novel and what it's trying to do,
+2:09 it stands on the shoulders
+2:10 of many other protocols and ideas around standardization.
+2:14 Let's go show a quick demo where with just a few lines of code,
+2:17 we can bring in context to our AI application.
+2:20 On the left-hand side here, I'm using Claude Desktop, and I'm asking
+2:23 a question about retrieving some issues from a GitHub repository.
+2:27 On the right we can see this GitHub repository.
+2:29 And immediately through natural language I'm able to talk to this data source.
+2:34 This is the power of MCP.
+2:36 I have connected to an MCP server that's providing data necessary
+2:40 from GitHub, and I'm also connected
+2:42 to another MCP server for Asana, a popular project management tool.
+2:46 What I'm doing here is reading data from GitHub, and then I'm asking
+2:50 to triage particular issues and assign tickets in Asana.
+2:53 So I am reading from one data source and writing to another.
+2:56 We can see here in this interface there there's a human in the loop
+3:00 verifying the actions that I want to take with just very little code,
+3:03 I'm now communicating with external data sources with ease.
+3:07 This idea of being able to use MCP with any model provider
+3:11 completely open source, allows for seamless integration
+3:15 with different models and different data sources.
+3:17 We can see here I've created these tasks.
+3:19 Things are updating for me in the browser, and I can now continue
+3:23 to use natural language to iterate on this task I have here.
+3:26 I'm going to assign a task to an individual.
+3:28 I'm going to see that get updated and through the use
+3:31 of a very intelligent model,
+3:33 in this case, 3.5 Sonnet, a few tools provided by MCP,
+3:36 and an environment to run this over and over again,
+3:39 we're actually taking a look at a very lightweight agent to power
+3:42 this application.
+3:43 Like I mentioned, everything you could do with MCP, you could do without.
+3:47 But here's what it starts to look like.
+3:49 As you build these integrations where do you store your tools?
+3:52 Where do you store custom prompts that you have?
+3:55 Where do you store that data access layer and authentication logic?
+3:58 We found ourselves and for many different teams,
+4:00 repeating the wheel over and over and over again, many different AI applications,
+4:05 talking to a similar data source but written in a different way. With MCP,
+4:09 not only is this model agnostic, it's completely open source,
+4:13 so these tools and data connectivity are provided to you
+4:16 by the open source community, or you can build them yourself. With MCP,
+4:20 we shift the burden of responsibility and we separate our concerns
+4:24 in a really clean fashion.
+4:25 We build or use MCP compatible applications
+4:29 and connect to many different servers for the particular kind of data access
+4:33 that we need.
+4:34 We can have servers for data stores, for customer relationship management tools
+4:38 like HubSpot or Salesforce, even servers for things like version control.
+4:42 And the aim here is to use natural language to talk to these data stores
+4:47 without having to write all that logic ourselves. With MCP,
+4:50 the beauty of the server is that it's also reusable
+4:53 across many different applications.
+4:55 As we're going to see, there are reference servers
+4:57 that we can use or servers that we can even build internally
+5:00 and share amongst many different applications that we build.
+5:04 We might build a MCP server or use one for Google Drive,
+5:07 and depending on the application that we're building,
+5:10 that could be an AI assistant or agent or desktop application
+5:13 as long as it is MCP compatible,
+5:15 we can go and use that server and whatever else we want.
+5:19 You can let your imagination really start to carry you
+5:21 with all the different data access that you can bring in to your application,
+5:25 with minimal code and effort. With MCP,
+5:28 there are lots of wins for many different audiences.
+5:30 For application developers, connect to an MCP
+5:33 server with very little work. For API developers,
+5:36 build the MCP server once and adopt it everywhere. For users of AI applications,
+5:42 the idea behind MCP can be abstracted away quite a bit,
+5:46 so that you can bring a URL for an MCP server and simply
+5:50 have the data access that you need brought into your application.
+5:53 For enterprises and large organizations, you can think of the benefits
+5:56 of separating your concerns
+5:58 and building standalone integrations that different teams can use.
+6:01 As you might be aware, the MCP ecosystem is growing fast.
+6:05 We're seeing development
+6:06 not only from large companies, but also startups at the frontier.
+6:10 And we're seeing many, many, many different servers
+6:12 being built privately and in the open source community.
+6:15 The SDK or software development kits that we have to power MCP
+6:19 are written across many different languages and developed
+6:22 in the open source community, and also led by many different companies
+6:26 and AI developers.
+6:27 We're seeing MCP compatible applications across web applications,
+6:32 across desktop applications, and even agentic products as well.
+6:35 Before we wrap up,
+6:36 let's answer a couple of common questions you might be having about MCP.
+6:40 These MCP servers that we talk about, from GitHub to Asana to Google Drive.
+6:44 Who actually writes those?
+6:45 Well, anyone can.
+6:46 You yourself as a developer can build them,
+6:49 or you can go ahead and use community adopted ones.
+6:52 In the next few lessons, we'll see how MCP servers are built,
+6:56 and we're going to build quite a few of our own.
+6:57 You might think of MCP servers as very similar to working with APIs,
+7:02 and in fact you're not totally off.
+7:03 You can think of an MCP server as kind of like a gateway or a wrapper
+7:07 on top of an API, where if you do not want to bother calling the API directly,
+7:12 you can use natural language and let the MCP server handle that for you.
+7:16 MCP servers support tool use,
+7:18 but that's just one part of what MCP servers can do.
+7:21 The servers give you functions and schemas available to you, but as we're going
+7:25 to see in the next lesson, there's so much more that MCP provides.
+7:29 So we answer the question why the Model Context Protocol?
+7:32 We've seen a really nice demo for what it can do
+7:34 with a very little amount of work.
+7:36 And the next lesson we're going to start to explore how MCP works a bit
+7:39 under the hood and introduce the idea of hosts and clients and servers,
+7:43 and talk a little bit about some of the underlying
+7:45 primitives in the protocol, like resources, tools and prompts.
+7:49 See you then.

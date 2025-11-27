@@ -1,0 +1,178 @@
+
+0:01 In this course, you've learned about the core concepts of MCP.
+0:05 You've built a server that exposes tools, resources, and prompts,
+0:09 developed a chatbot, that can connect to multiple servers,
+0:13 use Claude Desktop to build more sophisticated
+0:15 applications and deploy your own remote server.
+0:19 Congratulations!
+0:20 MCP is constantly evolving.
+0:22 In this last lesson, you'll learn about other features of MCP
+0:25 and some of the exciting things coming soon to the protocol.
+0:29 I'll see you there.
+0:30 There's a lot you've learned about the Model Context Protocol.
+0:33 You've learned about hosts and clients and servers, tools, resources and prompts.
+0:38 And then you've got a chance
+0:39 to write some code to power larger applications using all of these ideas.
+0:44 But there's still a bit that we have not yet covered
+0:46 about the model context protocol.
+0:47 Much of this is an active development, and you can always examine the latest
+0:51 on the specification, run through GitHub
+0:53 and through the discussions that you can find.
+0:55 The first piece
+0:56 we haven't covered yet is authentication in the Model Context Protocol.
+1:00 In the March specification update, OAUTH 2.1 was added
+1:04 as the means of authentication with remote servers.
+1:07 What this allows for is for clients and servers
+1:10 to authenticate and send authenticated requests to data sources.
+1:13 You can imagine many different servers need to access data
+1:17 that requires some form of authentication.
+1:19 This requires the client making a request to the server.
+1:22 The server then requiring some user to authenticate.
+1:26 And once the authentication process is successfully done,
+1:29 the client and server can exchange a token and the client can make authenticated
+1:34 requests to the server and then to the data source.
+1:37 This part of the protocol is an active development,
+1:39 and there are always newer features and security pieces being added.
+1:43 But authentication will primarily be done with the OAUTH 2.1
+1:46 protocol. To highlight that in some depth,
+1:49 this is an optional feature of the Model Context Protocol,
+1:52 but it is highly recommended for remote servers. With standard IO,
+1:55 we use environment variables and don't have the need
+1:58 for this kind of authentication.
+2:00 This is built on established standards that you can take a look at with
+2:03 these links below.
+2:04 So while we've explored primitives that to be exposed by the server
+2:09 tools, resources and prompts, we also have primitives that the clients can expose.
+2:14 These include roots and sampling.
+2:16 Let's dive into this.
+2:17 A route is a URI that a client suggests a server should operate in.
+2:22 The idea is centered around only looking in specific folders
+2:26 for files that you might need. When the client connects to a server,
+2:30 it can declare the roots that the server should work with.
+2:33 This can be useful for filesystem paths,
+2:35 but can be any valid URI, including HTTP URLs.
+2:39 The benefits of roots allow for security limitations.
+2:42 Allow for keeping the server focused on a relevant file path or location,
+2:47 and roots also have some versatility baked in, where again,
+2:50 they're useful for file paths, but also can be any valid HTTP URI.
+2:54 We're slowly starting to see more and more clients adapt this primitive,
+2:57 and it's an important one to keep track of as the protocol evolves.
+3:00 The last primitive that we're going to cover is sampling.
+3:03 Sampling allows for servers to request inference from a large language model.
+3:09 Kind of like the other side of communication,
+3:11 where instead of the client talking to the large language model,
+3:14 the server can talk back to the client and request inference.
+3:17 An example here might be a situation
+3:19 where your users report that a website is slow for some reason.
+3:23 Your MCP server can then collect server logs, performance metrics, error logs,
+3:28 and communicate with a variety of data sources to see what's going on.
+3:32 Instead of the server handing that back to the client,
+3:35 putting everything in the context window,
+3:37 or potentially any kind of breach of security
+3:40 between the server and the client, the server instead can talk directly
+3:43 to the large language model and ask it to diagnose performance issues.
+3:47 The large language model analyzes the patterns and returns data back,
+3:51 and then the server can generate the steps to make the website a bit less slow.
+3:55 When there are concerns from a security standpoint or breaching boundaries.
+4:00 Or you might not want all that data coming back to be put into context.
+4:04 Sampling and creating sampling loops,
+4:06 it's a very powerful way for servers to request inference and kind of switch
+4:11 the direction of communication from what we've seen before.
+4:14 This is also quite powerful
+4:16 as we explore agentic capabilities with the Model Context Protocol.
+4:19 As we start to move towards
+4:20 a world where more models are talking to different data sources,
+4:24 and we're giving more autonomy to models to call different tools
+4:28 and go off on their own,
+4:29 we believe MCP will be a foundational protocol for agents.
+4:33 As we start to think about how MCP can be used with agentic capabilities,
+4:38 you can imagine a scenario where an user and a large language model
+4:41 need to access a variety of MCP servers.
+4:45 What's so powerful about the Model Context Protocol is
+4:48 that there's a composable and somewhat recursive nature,
+4:51 where clients can be servers, and servers can be clients.
+4:54 What this allows us to do is to start creating an architecture
+4:58 where we can take advantage of the ability for clients to communicate with servers,
+5:02 but also for servers
+5:03 to request the data that they need through sampling back to a client.
+5:08 What we've set up here is the idea of a multi-agent architecture,
+5:11 where the application and a large language model communicate with an agent.
+5:16 This agent happens to be an MCP client and a server,
+5:20 and it can serve data back to the application,
+5:23 but it can also connect to other clients
+5:25 and servers through the Model Context Protocol.
+5:29 You can imagine that we have agents for analysis, for coding,
+5:32 for research that also happen to be MCP servers.
+5:35 And if they need to connect to other servers, clients as well.
+5:39 Through this composable nature,
+5:40 we can start to think about architectures that allow for multiple agents
+5:44 all speaking the same language with the same protocol.
+5:47 The next large piece that's on the roadmap
+5:49 for the model Context Protocol, is the idea around a unified registry.
+5:53 The purpose of this is to standardize the way
+5:56 in which we think about discovering servers themselves.
+5:59 As we've seen before,
+6:00 there's a lot of excitement in the open source community,
+6:03 and there are many different servers for data providers.
+6:05 Tools like Google Drive, GitHub and so on may have dozens of MCP servers,
+6:10 but just like with packages with NPM or PyPI, there's an opportunity
+6:14 for malicious code to exist inside of these particular servers.
+6:18 So the registry API serves the purpose of discovering servers,
+6:22 of centralizing where these servers live, and also verifying that these servers
+6:27 have been trusted by the community and by companies themselves.
+6:31 This also allows for versioning of particular MCP servers
+6:35 to lock in dependencies, just like you would in your application.
+6:38 What this also gets exciting is the ability for MCP servers
+6:42 to let agents self discover them.
+6:44 You can imagine a scenario
+6:45 where a user needs to fix a bug based on something in some logs.
+6:49 The agent then searches through the registry API
+6:52 for the official MCP server, installs it and queries and suggests the fix.
+6:58 In this particular use case, instead of requiring the application to be connected
+7:03 to a variety of servers from the start, we can start to build applications
+7:07 where MCP servers are dynamically discovered and connected to.
+7:11 As we think about layering this on with authentication,
+7:14 we can imagine that a user has a request that requires a server to be discovered.
+7:18 Similar to other protocols like OAUTH and the agent-to-agent protocol
+7:23 that Google recently announced,
+7:24 the idea of putting in a JSON file in a well-known folder is something
+7:28 that's been done before, except here in this MCP JSON,
+7:31 we specify the endpoint of a server to connect to, the capabilities
+7:36 or primitives that it exposes, and then the authentication that's required.
+7:39 So a user might ask how we manage my store on Shopify.
+7:42 The agent or AI application
+7:45 will see if Shopify has a well known MCP JSON file.
+7:49 And if it does, it will figure out
+7:51 what endpoint to connect to and what authentication is required.
+7:54 Once the user authenticates,
+7:56 the agent can perform the necessary action. Through a registry API,
+8:00 we can allow for this idea of dynamic discovery and through layering on Oauth2,
+8:05 we can ensure that these connections are secure.
+8:08 As you might see in the suggestions, and in the discussions, there's a lot more
+8:11 that's coming to the protocol.
+8:13 As more and more clients support HTTP streamable.
+8:17 The aim is to achieve a smooth transition between staple and stateless capabilities.
+8:21 As remote MCP servers continue to be developed,
+8:24 it's important to expand the ecosystem to support even more and more of those.
+8:28 As you can imagine, when multiple MCP servers are being used,
+8:32 it's very possible for tools to have naming conflicts.
+8:35 You can imagine servers
+8:36 that might have generic names of tools like fetch users, fetch entities,
+8:40 and the model might get confused about what needs to be fetched.
+8:43 So it's important to think about preventing collisions
+8:45 and creating logical groups of servers or tools.
+8:48 We spoke a bit about sampling or proactively requesting context.
+8:52 There's a lot of work that's being put into the protocol and it's conversations
+8:55 we have to enable primitives like sampling to become much more popular.
+8:59 And finally, while OAUTH2 is relatively new to the specification,
+9:03 there's still quite a bit more to think
+9:04 about with regards to authentication and authorization at scale.
+9:08 In just a short amount of time,
+9:09 you've seen so much about the Model Context Protocol.
+9:12 You learn conceptually about the primitives. You've built, servers
+9:15 and clients and hosts, and you've seen how to deploy remote MCP servers.
+9:20 There's still so much more to be discovered.
+9:22 So I encourage all of you to take a look at the discussions and the conversations,
+9:26 and keep building and researching as much as you can.
+9:29 Thank you so much for joining me in this journey,
+9:31 and I can't wait to see what you build with MCP.

@@ -1,0 +1,162 @@
+
+0:02 You'll now take the tools you implemented for the chatbot
+0:04 and wrap them in an MCP server using the standard IO transport.
+0:08 You'll use fast MCP, which provides a high level interface to build an MCP server.
+0:13 Finally, you'll use the MCP inspector to test your server.
+0:17 Let's get coding.
+0:19 So we're going to pick up where we left off with the last lesson where we defined
+0:22 two functions, search papers to go ahead and find papers on archive.
+0:27 And then another function that we had down here,
+0:30 extract info.
+0:31 We took these functions and we defined them as tools
+0:34 and passed them to our large language model.
+0:36 What we're going to do now is abstract away the definition of these tools
+0:41 and the schema of these tools, and create an MCP server
+0:45 and use a library called fast MCP to help us build that quickly.
+0:49 So with just a few lines of code, we're going to bring in fast MCP
+0:53 We're going to define each of these functions as tools using MCP.
+0:58 And then we're going to go ahead and start our MCP server
+1:01 and test that in the browser.
+1:02 So the first thing I'm going to do is bring in the necessary import that I need.
+1:06 So from MCP dot server dot fast MCP
+1:09 I'm going to import the fast MCP class.
+1:12 I'm then going to go ahead and initialize that MCP server.
+1:15 So I'll initialize our fast MCP server.
+1:19 And I'll declare a variable here, which is the result of initializing that.
+1:24 I'll give this server a name.
+1:25 We'll call this research.
+1:27 And let's go ahead and make use of that MCP variable.
+1:31 As we saw before, there are quite a few primitives in the Model Context Protocol.
+1:36 We saw tools, resources, prompts.
+1:39 And what we're going to start with right now is just defining a tool.
+1:42 And that's as easy as decorating this function with MCP dot tool.
+1:47 We'll go ahead and make sure we do that for our function below as well.
+1:51 And what this is going to do is define two tools
+1:54 on our MCP server that we can start running and testing.
+1:58 One last thing we need to do here
+2:00 is make sure that we have the right command to start this server.
+2:04 So what I'm going to bring in is a very standard bit of Python.
+2:08 We're going to say if __name__ is equal to __main__,
+2:11 this allows me to run this directly.
+2:13 And if there are imports, this code does not run.
+2:16 I'll go ahead and initialize and run the server.
+2:19 I'll do that by calling MCP dot run.
+2:22 And I'm going to pass in a transport.
+2:24 As we saw before, we can run servers locally and we can run them remotely.
+2:28 And when we're running our servers locally we almost always use standard IO.
+2:33 So I'll pass in a transport of standard IO.
+2:36 And that's all we need to start writing our MCP server.
+2:39 You can see at the top here we've got a magic function to go ahead
+2:43 and actually write a file called Research Server dot py.
+2:47 So I'm going to go ahead and execute this cell.
+2:49 And we're going to see that we write a file called Research server dot py.
+2:53 This Python file is going to be used when we start our MCP server.
+2:58 So let's go ahead and set up our environment and test our server.
+3:01 To do this I'm going to go ahead and open up a new terminal.
+3:04 In the environment that we're in,
+3:06 we're going to need this code
+3:07 necessary to create and run code inside of a terminal.
+3:11 If you want to run this code locally on your own machine,
+3:14 you're more than welcome to do so as well.
+3:16 We can see here, I've got a terminal and I'm going to CD
+3:19 into a folder called MCP project where my code lives.
+3:22 I can see here I have my research server dot py.
+3:25 In fact, this research server dot py is all of the code
+3:29 that we just created above.
+3:30 What I need to do here is install the necessary dependencies
+3:35 to start working with MCP, as well as install the archive SDK.
+3:39 What I'm going to do here is instead of using Pip,
+3:42 I'm going to use a package manager called UV.
+3:44 UV is slightly faster than Pip and provides quite a few other
+3:47 nice tools to make it easier to manage your dependencies in Python.
+3:52 Once I run uv init, we're going to see I have initialized
+3:55 project called MCP project based on the name of the folder.
+3:59 If you're familiar with virtual environments
+4:02 or creating a virtual environment, this part is going to
+4:04 look familiar if you're not familiar with virtual environments,
+4:08 they're simply ways to self-contain the dependencies that you have.
+4:12 So that you're not installing things globally and potentially conflicting
+4:16 with other installations.
+4:17 So let's go ahead and create our virtual environment using uv
+4:21 venv We'll see here we have a virtual environment and actually
+4:24 a folder called Dot venv
+4:26 Let's go ahead and activate this virtual environment.
+4:30 We'll do that using source dot
+4:32 venv Then activate.
+4:34 And I'm using tab completion here.
+4:36 So I don't make any spelling mistakes.
+4:38 We can see here now that we're in a virtual environment called MCP project.
+4:43 And now we need to install the necessary dependencies.
+4:46 I'll clear so you can see what we have at the top.
+4:48 And I'll go ahead and bring in the dependencies of MCP and arxiv.
+4:53 We'll give this a second to install.
+4:54 And we're going to pull
+4:55 in these dependencies
+4:56 so that when we start running our MCP server we get the correct information.
+5:00 The next step right now is to test our server file.
+5:04 Instead of just running this code in Python, to test
+5:07 the server, we're going to use a tool developed
+5:10 called the Inspector, which gives us a browser-based environment
+5:14 to explore the tools, resources, prompts, and other primitives that we have.
+5:19 I'll clear here so we can start from the top. In order to use that tool,
+5:22 I'm going to run the command npx at Model Context Protocol slash inspector.
+5:27 What this is going to do is pull in the command to start this server
+5:32 so that I don't have to install it locally.
+5:34 And then the command that I want to use to run the application
+5:38 is uv run research server. I'm using, uv run
+5:42 so I can sure I have the correct dependencies
+5:44 and I'm in my virtual environment.
+5:46 This simply makes it an easier way to run Python files.
+5:49 We'll see here
+5:50 that we're starting our MCP inspector and the MCP inspector is up and running.
+5:55 So I'm going to head over to the browser and hop into that particular inspector
+5:59 that we're looking at.
+6:01 When we take a look at this inspector,
+6:03 we're going to see that we have a few different kinds of transport types.
+6:07 We have server-sent events and Streamable HTTP, our remote protocols.
+6:12 But remember our server is running on standard IO.
+6:14 So let's keep that as is.
+6:16 The command that we use to run is uv run research server.py.
+6:21 We saw in the command line that's what we passed in
+6:24 and that's being applied right here. One small note,
+6:27 since we're running this in a slightly different environment, we're
+6:30 going to have to paste in a proxy address that we've provided in the notebook.
+6:35 If you're running this locally this is not something you'll have to do.
+6:38 So I'm going to go ahead and paste in that proxy address.
+6:41 And let's go ahead and connect to our server.
+6:44 Once we connect, we're going to see some of the primitives that we have access to.
+6:49 We discussed resources, prompts, and tools
+6:52 and what we've created on this server right now are just some tools.
+6:56 But what I do want you to see is this initialize process right here.
+7:00 If you remember back in our previous lesson
+7:03 when we spoke about communication and the transports,
+7:06 the first process was a handshake or initialization from client to server.
+7:11 We're going to head over to tools,
+7:13 and we're going to go see what tools we have available.
+7:15 This list tools is another command we can issue to go ahead
+7:19 and find the particular tools that the server is providing.
+7:23 We can also go ahead and run these tools.
+7:27 So what's really nice about the inspector is without building
+7:30 any kind of MCP client or host, you have a sandbox to play around with
+7:34 the tools or prompts or resources that the server is returning.
+7:38 We can also see here from the docstring, we've inferred a description
+7:42 as well as the parameters that are required.
+7:45 Let's go ahead and search for a topic.
+7:47 I'll go search for chemistry and let's look for one result.
+7:52 When I run that tool, we're going to go ahead and get back the return value.
+7:57 So we have not yet
+7:59 added any kind of large language model or functionality here.
+8:03 We're simply just testing the MCP server.
+8:07 I can go ahead and test my other tool with that paper ID,
+8:11 and we should expect that I get back a success as well.
+8:14 The MCP inspector is extremely valuable as you start building servers,
+8:19 and even when you install servers that other people have written, it's a
+8:22 great way to have a sandbox to play around once you're done using the inspector,
+8:27 we can head back to our notebook and if you need to quit the server,
+8:31 you can stop that process using Control+C.
+8:34 And we're back in the terminal.
+8:36 If you ever need to start that again, you can always press up
+8:40 to get access to your previous command, so you don't have to take the whole thing.
+8:43 In the next lesson, we're going to start layering on an MCP host and a client
+8:48 and integrate this MCP server with a chatbot that we build all talking with MCP.
+8:54 See you there.

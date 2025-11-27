@@ -26,5 +26,37 @@
     "summary": "There is a canonical unitary transformation from $L^2(\\R)$ onto the Fock\nspace $F^2$, called the Bargmann transform. We study the action of the Bargmann\ntransform on several classical integral operators on $L^2(\\R)$, including the\nfractional Fourier transform, the fractional Hilbert transform, and the wavelet\ntransform.",
     "pdf_url": "http://arxiv.org/pdf/1605.08683v1",
     "published": "2016-05-27"
+  },
+  "2209.07474v3": {
+    "title": "On the Surprising Effectiveness of Transformers in Low-Labeled Video Recognition",
+    "authors": [
+      "Farrukh Rahman",
+      "\u00d6mer Mubarek",
+      "Zsolt Kira"
+    ],
+    "summary": "Recently vision transformers have been shown to be competitive with convolution-based methods (CNNs) broadly across multiple vision tasks. The less restrictive inductive bias of transformers endows greater representational capacity in comparison with CNNs. However, in the image classification setting this flexibility comes with a trade-off with respect to sample efficiency, where transformers require ImageNet-scale training. This notion has carried over to video where transformers have not yet been explored for video classification in the low-labeled or semi-supervised settings. Our work empirically explores the low data regime for video classification and discovers that, surprisingly, transformers perform extremely well in the low-labeled video setting compared to CNNs. We specifically evaluate video vision transformers across two contrasting video datasets (Kinetics-400 and SomethingSomething-V2) and perform thorough analysis and ablation studies to explain this observation using the predominant features of video transformer architectures. We even show that using just the labeled data, transformers significantly outperform complex semi-supervised CNN methods that leverage large-scale unlabeled data as well. Our experiments inform our recommendation that semi-supervised learning video work should consider the use of video transformers in the future.",
+    "pdf_url": "https://arxiv.org/pdf/2209.07474v3",
+    "published": "2022-09-15"
+  },
+  "2506.22084v1": {
+    "title": "Transformers are Graph Neural Networks",
+    "authors": [
+      "Chaitanya K. Joshi"
+    ],
+    "summary": "We establish connections between the Transformer architecture, originally introduced for natural language processing, and Graph Neural Networks (GNNs) for representation learning on graphs. We show how Transformers can be viewed as message passing GNNs operating on fully connected graphs of tokens, where the self-attention mechanism capture the relative importance of all tokens w.r.t. each-other, and positional encodings provide hints about sequential ordering or structure. Thus, Transformers are expressive set processing networks that learn relationships among input elements without being constrained by apriori graphs. Despite this mathematical connection to GNNs, Transformers are implemented via dense matrix operations that are significantly more efficient on modern hardware than sparse message passing. This leads to the perspective that Transformers are GNNs currently winning the hardware lottery.",
+    "pdf_url": "https://arxiv.org/pdf/2506.22084v1",
+    "published": "2025-06-27"
+  },
+  "2308.07110v1": {
+    "title": "SCSC: Spatial Cross-scale Convolution Module to Strengthen both CNNs and Transformers",
+    "authors": [
+      "Xijun Wang",
+      "Xiaojie Chu",
+      "Chunrui Han",
+      "Xiangyu Zhang"
+    ],
+    "summary": "This paper presents a module, Spatial Cross-scale Convolution (SCSC), which is verified to be effective in improving both CNNs and Transformers. Nowadays, CNNs and Transformers have been successful in a variety of tasks. Especially for Transformers, increasing works achieve state-of-the-art performance in the computer vision community. Therefore, researchers start to explore the mechanism of those architectures. Large receptive fields, sparse connections, weight sharing, and dynamic weight have been considered keys to designing effective base models. However, there are still some issues to be addressed: large dense kernels and self-attention are inefficient, and large receptive fields make it hard to capture local features. Inspired by the above analyses and to solve the mentioned problems, in this paper, we design a general module taking in these design keys to enhance both CNNs and Transformers. SCSC introduces an efficient spatial cross-scale encoder and spatial embed module to capture assorted features in one layer. On the face recognition task, FaceResNet with SCSC can improve 2.7% with 68% fewer FLOPs and 79% fewer parameters. On the ImageNet classification task, Swin Transformer with SCSC can achieve even better performance with 22% fewer FLOPs, and ResNet with CSCS can improve 5.3% with similar complexity. Furthermore, a traditional network (e.g., ResNet) embedded with SCSC can match Swin Transformer's performance.",
+    "pdf_url": "https://arxiv.org/pdf/2308.07110v1",
+    "published": "2023-08-14"
   }
 }

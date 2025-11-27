@@ -1,0 +1,230 @@
+
+0:01 In the previous lesson, you connected your chatbot to one server that
+0:05 you built.
+0:06 Now you'll update your chatbot so that it can connect to any server.
+0:10 You'll learn more about the reference servers developed by the Anthropic team
+0:14 and how you can download them.
+0:16 Let's get to it!
+0:17 So far, we've seen how to build MCP servers
+0:20 as well as clients and connect those on a 1 to 1 basis.
+0:24 Well, we want to start introducing now, is the ability to not only build
+0:29 multiple clients that can work with multiple servers, but also introduce
+0:33 the entire ecosystem of servers that exist out there.
+0:37 So I'm going to start here by taking a look at some of the servers
+0:40 that are reference servers from Anthropic on our repository.
+0:44 So let's go take a look on GitHub for the reference servers that we have
+0:48 with the Model Context Protocol.
+0:50 As you take a look through all of the servers here,
+0:53 there's a massive, massive list.
+0:55 So we're just going to start with the reference servers.
+0:57 These are ones that we have worked on and built at Anthropic.
+1:01 There are also many different third party servers and official integrations.
+1:05 Any data source that you can imagine talking to at this point
+1:08 probably has an MCP server.
+1:11 Instead of you having to download these servers and run them locally.
+1:14 We're also going to see how we can add the command necessary to run the server
+1:19 without that much hassle.
+1:20 The servers that we're going to be using
+1:22 are the fetch server, as well as the file system server.
+1:25 So let's take a look at the fetch server.
+1:27 What's so interesting about this is that if you look
+1:30 at the underlying source code for many of these servers, it's
+1:34 actually going to look pretty familiar to what you built before.
+1:37 We can see here that the fetch MCP server exposes tools
+1:41 and a prompt to us, and we can see what the installation is as well.
+1:45 Since this server is written in Python, we're actually going to use the uv command
+1:51 to directly run a command called MCP server fetch, which will run all the code
+1:56 necessary to download what we need and establish the connection.
+2:00 So instead of uv run, we're going to be using uvx.
+2:03 The fetch server allows us to retrieve content from web pages,
+2:06 convert HTML to markdown so that LLMs can better consume that content.
+2:12 The second server that we're going to be looking at is the file system server.
+2:15 And just like you can imagine,
+2:17 this is going to be a way for us to access our file system reading,
+2:20 writing files, searching for files, getting metadata and so on.
+2:25 We can see here there are resources and tools exposed,
+2:28 quite a few different tools for reading and writing files.
+2:32 If you take a look at the source code here,
+2:34 you can see that this is not written in Python.
+2:36 This is in fact written in TypeScript, which means instead of uvx,
+2:40 we're going to be using a slightly different command.
+2:42 If we take a look at the installation instructions to run this,
+2:46 the command necessary is npx /y.
+2:50 So that we don't need to press enter for any other installation instructions
+2:54 and then Model Context Protocol server file system.
+2:57 So similar
+2:58 to running uvx where we can download what we need and execute it right away,
+3:02 we're going to be using npx from the npm package manager.
+3:06 We then specify any paths that we allow for reading and writing files into.
+3:11 As you can see,
+3:12 each of these reference servers have a bit of configuration required.
+3:16 The name of the server, the command necessary, and so on.
+3:19 So what we're going to do is we're going to make some updates to our chatbot.
+3:23 Instead of hardcoding these server parameters.
+3:26 We're going to make a small JSON file that we can read from
+3:30 to figure out the necessary commands to interact with our servers.
+3:34 We'll be using the file system server,
+3:37 the research server that we're building, as well as the fetch server.
+3:40 And we'll see how we can put all three of those together
+3:43 to create very powerful prompts. In order to make this happen,
+3:47 we're going to have to go ahead and change the code in our MCP chatbot.
+3:51 The reference servers stay the same.
+3:54 Our research server stays the same,
+3:56 but we have to update the code a bit for our MCP chatbot.
+3:59 There is a good amount here
+4:00 that is relatively lower level and plenty of opportunity for refactoring.
+4:05 So I'll walk you through what we have here
+4:07 and I welcome any changes you'd like to make to grow this as it scales.
+4:11 In order to get this to work, we're going to have to set up our own JSON
+4:15 file to configure how we want to connect to each of the individual servers.
+4:19 And here's what that's going to look like.
+4:21 We're going to start with a little bit of JSON to contain all of our servers.
+4:25 Then we'll specify the name of those servers
+4:28 as well as the underlying command necessary.
+4:31 And any arguments required for the research server.
+4:35 This is going to look relatively familiar.
+4:37 And for the reference servers,
+4:38 since we're not downloading it and then running it locally ourselves,
+4:42 we're using commands like npx and uvx to run those immediately.
+4:46 So we're going to see this file.
+4:48 And you can find this file as well in your list of files for this lesson
+4:52 under the folder MCP project. For the File System server,
+4:56 if you remember, we had to specify the paths that we wanted access to.
+5:01 And here we're specifying a dot which means the current directory that we're in.
+5:05 So this is not going to be able to read
+5:07 or write from files or folders outside of this current directory.
+5:11 Now let's go ahead and take a look at the code necessary for our MCP chatbot
+5:16 to not only connect to multiple servers with multiple clients,
+5:21 but also correctly read the JSON file for the server configuration necessary.
+5:26 Let's go ahead and see what
+5:27 we need to update our MCP chatbot to handle these connections.
+5:31 If you take a look at the code that we have here for our MCP chatbot,
+5:35 there's quite a bit more happening under the hood, and especially some lower
+5:39 level ideas that I want you to not feel too intimidated by.
+5:42 The most important takeaway here is to understand how tools like Claude
+5:47 Desktop, Claude AI, Cursor, Windsurf, work under the hood
+5:51 when they set up multiple connections to multiple servers.
+5:55 What I'm going to do here is start by adding a little bit more to my MCP
+5:58 chatbot.
+5:59 I'm going to maintain a list
+6:00 of all of the sessions that I've connected to, as well as all of the tools
+6:04 and the particular session that that tool is related to.
+6:08 Again, this is not production ready.
+6:10 This is really just giving you a sense of how to get started.
+6:13 And the focus here is to make sure that we correctly map a tool
+6:16 to the session that we're working in.
+6:18 We have a type definition
+6:19 here, as our tools are a little bit more complex than we had before.
+6:22 We're going to have some similar code to connect to a server, except that
+6:26 since we have multiple context managers inside of an asynchronous environment,
+6:31 we have to set up our connection a little bit differently.
+6:34 So we use an async exit stack to manage our connections for reading and writing,
+6:39 as well as managing the entire connection to the session.
+6:43 Below, we're going to see some pretty familiar code.
+6:46 We initialize a session, we list those tools,
+6:49 and we take the tools and append them to our list of available tools.
+6:53 You can imagine that this is a function that's going to be run
+6:56 multiple times for each of the servers that we want to connect to.
+7:00 And that is exactly what we're doing down here.
+7:02 We're going to go ahead and read from our server config file.
+7:05 We're going to parse that JSON,
+7:07 turn it into a dictionary that we can then iterate over.
+7:10 And for each individual MCP server, connect to it.
+7:14 If you are familiar with asynchronous programing
+7:17 you can see that this code is blocking,
+7:19 and maybe you could refactor this to use async IO gather or so on.
+7:23 But again, the focus here is understanding conceptually what's going on
+7:27 and welcome any refactor as you'd like to do.
+7:29 Once we connect to all of these servers, we're then going to use some logic
+7:33 that looks pretty familiar as well.
+7:35 We're going to go ahead and get access to our model.
+7:38 We're going to pass in any information coming in from a query.
+7:41 And then if there is a tool
+7:43 that we need, we're going to go find it and call that particular tool.
+7:47 The rest of this logic is very familiar.
+7:49 The chat loop that we have is exactly as what we had before, with one small note,
+7:54 that when we need to go ahead and close any connection that we have.
+7:58 We do this using our context manager for multiple different connections.
+8:03 Our main function has a little bit more to allow us to connect
+8:06 to all of the servers that we need, and then start the chat loop.
+8:10 And once that's all done,
+8:11 we can go ahead and clean up any lingering connections that we have
+8:15 to these servers.
+8:16 And just like we had before, we're going to start this application
+8:19 by calling Async io dot run with our main function.
+8:22 So let's go ahead and write this file
+8:24 and we'll hop back to the terminal in the terminal here.
+8:27 I'm going to first CD into MCP project.
+8:30 And I'm going to see here that I have again a dot then folder.
+8:33 So let's go ahead and activate that virtual environment.
+8:36 Source dot venv bin activate.
+8:39 And then let's go ahead and run our chatbot.
+8:42 I'll clear so we can take this from the top.
+8:44 And I'll type in.
+8:45 You've run MCP
+8:48 chatbot dot py.
+8:52 What we're going to do here
+8:53 is connect to multiple MCP servers by setting up multiple clients.
+8:58 We can see here, we've connected to the file system
+9:01 with the allowed directory of the current directory we're in.
+9:04 We've connected with these particular set of tools.
+9:07 We've connected to our research server as well as the fetch server itself.
+9:12 We have the same exact chat interface that we had before.
+9:15 So I'm going to paste in this prompt
+9:16 where I'm going to ask it to fetch the content of the Model Context Protocol
+9:20 and save the content to a file called MCP summary,
+9:23 and then create a visual diagram that summarizes the content.
+9:27 So what we're going to be doing here
+9:28 is use a multitude of tools to fetch information
+9:31 and then to summarize that information.
+9:34 We're then going to have it draw a nice little diagram for us.
+9:36 So let's go take a look at what that looks like.
+9:39 We can see here it's saved to a file called MCP summary MD.
+9:43 So in our file system let's go take a look at what that file looks like.
+9:47 So we've got this nice little diagram here for the Model Context Protocol.
+9:51 This was done by fetching information from the website summarizing
+9:55 that information.
+9:56 Turning it into a nice visualization.
+9:58 And again we're going to see an even prettier one
+10:01 when we start bringing in tools like Claude Desktop.
+10:03 But now the UI is totally up to you for what you want to do.
+10:06 But you can do whatever you want with this file right now.
+10:10 So we've seen how a couple of these servers can work together.
+10:13 Let's try bringing all three together.
+10:15 So we'll say fetch DeepLearning.AI
+10:18 find an interesting term
+10:22 to search papers around
+10:26 and then summarize your findings
+10:29 and write them to a file
+10:32 called results dot txt.
+10:35 We're going to make use of the fetch tool here to visit a website
+10:40 and find the content of that website.
+10:43 Based on that content, we'll find some interesting terms.
+10:46 In this case we've got multi-concept pre-training.
+10:50 We're then going to go ahead and find papers related to
+10:52 that.
+11:01 We're going to take that data and we're going to write it to a file.
+11:05 You might not find yourself using a combination of these servers
+11:08 for many real-world use cases, but now your imagination can carry you.
+11:13 Any existing MCP server
+11:15 can be added with minimal configuration,
+11:18 and you can take the results of these different MCP servers to add
+11:22 all the context you need to connect models like Claude to the outside world.
+11:28 We can see here we've got a really nice summary.
+11:31 Let's go ahead and see what's been written here.
+11:33 So we got a very interesting result from our research.
+11:35 It seems that while MCP or Model Context Protocol is a very powerful tool,
+11:40 there also is another acronym for MCP for Multi Concept pre-training.
+11:44 So it looks like the model got a little bit confused here.
+11:47 When in doubt, this is why prompt engineering is so important.
+11:49 And we could even follow up with a follow of
+11:52 this is why you should include the Model Context Protocol and not other concepts
+11:56 as well.
+11:56 As always, if we want to leave this chat session, we can type in quit.
+12:00 Now that we have multiple servers connecting to multiple clients,
+12:04 let's start adding on a few other primitives like resources
+12:07 for read only data
+12:09 and prompt templates for the ability to generate prompts on the server
+12:13 that the user can use
+12:15 so that they don't have to write prompts completely from scratch.
+12:18 I'll see you in the next lesson.

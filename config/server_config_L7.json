@@ -11,7 +11,7 @@
         },
         "research": {
             "command": "uv",
-            "args": ["run", "servers/research_server.py"]
+            "args": ["run", "servers/research_server_L7.py"]
         },
         "fetch": {
             "command": "uvx",

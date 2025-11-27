@@ -1,0 +1,58 @@
+
+0:01 Welcome to MCP: Build
+0:04 Rich-Context AI Apps with Anthropic built in partnership with Anthropic.
+0:08 In this course, you'll learn the core concepts of MCP
+0:11 and how to implement it in your AI application.
+0:15 The Model Context Protocol, or MCP, is an open protocol
+0:19 that standardizes how your LLM applications can get access to context
+0:23 in terms of tools and data resources
+0:26 based on the client-server architecture.
+0:29 It defines how communication takes place between an MCP client
+0:33 hosted inside your own LLM application, and an MCP server
+0:36 that exposes tools and data resources and prompt templates to your application.
+0:41 Since Anthropic launched MCP in November of 2024,
+0:45 the MCP ecosystem has been growing really rapidly.
+0:48 I'm delighted that the instructor for this course is Elie Schoppik,
+0:52 who is Head of Technical Education at Anthropic.
+0:55 Thanks, Andrew. I'm excited to teach this course with you.
+0:58 MCP originated as part of an internal project
+1:01 where we recognized an opportunity to extend the capabilities of Claude Desktop
+1:05 so that it can interact with local file systems and other external systems.
+1:10 We found the protocol we developed was useful in many AI applications,
+1:13 with similar needs. To make this available to more developers,
+1:17 we published the specification
+1:18 and opened its development to the open source community.
+1:21 The MCP ecosystem includes a growing number of MCP service
+1:25 developed by the open source community, as well as by Anthropic's MCP team.
+1:31 MCP is model agnostic and is designed to be easy
+1:34 to plug into multiple applications.
+1:36 Say you're building a research assistant agent,
+1:39 and you'd like for this agent to interact with your GitHub repos, read notes
+1:42 from your Google Drive documents, maybe create a summary stored
+1:46 in your local system. Instead of you writing your own custom LLM tools,
+1:50 you can connect your agent to the GitHub, Google Drive and File System service,
+1:55 which will provide the tool or the API call
+1:58 definitions and also handle the tool execution.
+2:02 Elie will walk you through the details of the MCP protocol.
+2:05 We'll first dive into the details of the MCP client-server architecture.
+2:09 You'll then work on a chatbot application to make it MCP compatible.
+2:14 You'll build and test an MCP server and connect your chatbot to it.
+2:18 Your MCP
+2:18 server will provide tools, prompt templates, and resources to your chatbot.
+2:23 You'll also connect your chatbot to other trusted third-party servers
+2:27 to extend its capabilities.
+2:29 You'll then re-use your MCP server and connect it
+2:31 to other MCP applications like Claude Desktop.
+2:35 Finally, you'll learn how you can deploy your MCP server remotely.
+2:39 I'd like to thank from DeepLearning.AI,
+2:41 Hawraa Salami, who had contributed to this course.
+2:45 MCP is a really important technology
+2:47 that's making it much easier for LLM application developers
+2:50 to connect the systems to many tools and data resources.
+2:54 And for teams building tools or providing data,
+2:57 it is also making it much easier
+2:58 to make what they build available to many developers.
+3:02 So this is a technology worth learning about.
+3:05 The next video goes through why connecting LLM applications
+3:09 to resources had been so difficult before, and how MCP addresses this.
+3:14 So, please go on to the next video to learn more.

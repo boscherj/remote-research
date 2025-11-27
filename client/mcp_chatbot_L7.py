@@ -1,3 +1,5 @@
+# Lesson 7: Adding Prompt & Resource Features
+
 from dotenv import load_dotenv
 from anthropic import Anthropic
 from mcp import ClientSession, StdioServerParameters
@@ -6,6 +8,12 @@ from contextlib import AsyncExitStack
 import json
 import asyncio
 import nest_asyncio
+import os
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "server_config_L7.json")
 
 nest_asyncio.apply()
 
@@ -71,9 +79,12 @@ class MCP_ChatBot:
 
     async def connect_to_servers(self):
         try:
-            with open("server_config.json", "r") as file:
+            # with open("server_config_L7.json", "r") as file:
+            with open(CONFIG_PATH, "r") as file:
                 data = json.load(file)
             servers = data.get("mcpServers", {})
+            print(f"Debug - servers: {servers}")
+
             for server_name, server_config in servers.items():
                 await self.connect_to_server(server_name, server_config)
         except Exception as e:
@@ -193,9 +204,9 @@ class MCP_ChatBot:
             print(f"Error: {e}")
 
     async def chat_loop(self):
-        print("\nMCP Chatbot Started!")
+        print("\nMCP Chatbot Started 7!")
         print("Type your queries or 'quit' to exit.")
-        print("Use @folders to see atpvailable topics")
+        print("Use @folders to see available topics")
         print("Use @<topic> to search papers in that topic")
         print("Use /prompts to list available prompts")
         print("Use /prompt <name> <arg1=value1> to execute a prompt")
